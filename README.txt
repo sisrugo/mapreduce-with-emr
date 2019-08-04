@@ -1,7 +1,3 @@
-README:
-Si Srugo 204514954
-Sharon Klebanov 308316488
-
 Environment Installation:
 1. To have default roles which match EMR create Cluster and terminate it. you can look on the Roles and see: EMR_DefaultRole and EMR_EC2_DefaultRole
 2. Create bucket for logs and edit AWSservice the AWSservice.LOGS_BUCKET_NAME variable
@@ -40,16 +36,16 @@ These are the following map-reduce steps in order:
 	map1 method - 
 		emit 2 values one for each group:
 			a. key :<w1w2w3, 0>
-		     	   value: {‘R’,r-value}
+		     	   value: {â€˜Râ€™,r-value}
 			b. key :<w1w2w3, 1>
-			   value: {‘R’,r-value}
+			   value: {â€˜Râ€™,r-value}
 	map2 input: the results from 2.
 	map2 metod -
 		emit 2 values one for group and second for rgroup (rgourp=num instances in of w1w2w3 in specific group)
 			a. key: <w1w2w3, group>
-		    	   value: {‘G’,group}
+		    	   value: {â€˜Gâ€™,group}
 			b. key: <w1w2w3, group>
-			   value: {‘RG’,rgoup}
+			   value: {â€˜RGâ€™,rgoup}
 	reduce method : recognize the tags and add all values in one text result
 	reduce result :
 		key :  w1w2w3
@@ -75,11 +71,11 @@ These are the following map-reduce steps in order:
 	map1 input - results from 4.
 	map1 method result - 
 		key: rgroup
-		value: {‘T’group!group: t-value} (the tag is T01/T10 according to the group) 
+		value: {â€˜Tâ€™group!group: t-value} (the tag is T01/T10 according to the group) 
 	map2 input - results from 5.
 	map2 method result - 
 		key: rgroup
-		value: {‘N’group: n-value} (the tag is N0/N1 according to the group) 
+		value: {â€˜Nâ€™group: n-value} (the tag is N0/N1 according to the group) 
 	reduce method - calc probability: (T01+T10)/(N*(N0+N1))
 	reduce result - 
 		key : rgroup
@@ -90,11 +86,11 @@ These are the following map-reduce steps in order:
 	map1 input - results from 1.
 	map1 method result - 
 		key: r,1
-		value: {‘id’: w1w2w3} 
+		value: {â€˜idâ€™: w1w2w3} 
 	map2 input - results from 6.
 	map2 method result - 
 		key: rgroup,0
-		value: {‘result’:probability value}
+		value: {â€˜resultâ€™:probability value}
 	reduce method- we accept first key <rgroup,0> and than key <r,1> when (rgroup = r). 
 			if the second value of the key is 0 we save the result and the last rgroup in lastR variable
 			if the lastR don't match to the value r in <r,1> key we save the word with 0 probability (means for this r we didn't got <rgroup,0> when rgroup = r). 
